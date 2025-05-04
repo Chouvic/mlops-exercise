@@ -1,5 +1,6 @@
 import pandas as pd
 import random
+import os
 from faker import Faker
 
 # Initialize Faker
@@ -19,6 +20,9 @@ data = {
 
 # Create DataFrame
 df = pd.DataFrame(data)
+
+# Create data directory if it doesn't exist
+os.makedirs('data', exist_ok=True)
 
 # Save to CSV
 df.to_csv('data/credit_card_records.csv', index=False)

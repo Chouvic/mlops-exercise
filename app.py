@@ -1,5 +1,6 @@
 import pandas as pd
 import joblib
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import LabelEncoder
@@ -29,12 +30,14 @@ def split_data(data, target_column, test_size=0.2, random_state=42):
     return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
 def train_model(X_train, y_train):
-    model = LogisticRegression()
+    model = LogisticRegression(max_iter=1000)
     model.fit(X_train, y_train)
 
     return model
 
 def save_model(model, filepath):
+    # Create models directory if it doesn't exist
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
     joblib.dump(model, filepath)
 
 def test_model(model, X_test, y_test):
